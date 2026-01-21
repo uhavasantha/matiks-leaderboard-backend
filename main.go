@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"os"
 	"sort"
 	"strings"
 	"sync"
@@ -149,7 +150,13 @@ func main() {
 		c.JSON(200, results)
 	})
 
-	port := "8080"
-	fmt.Printf("🚀 Server running on port %s\n", port)
-	r.Run(":" + port)
+	port := os.Getenv("PORT")
+if port == "" {
+	port = "8080" // fallback for local run
+}
+
+fmt.Printf("🚀 Server running on port %s\n", port)
+r.Run(":" + port)
+
+
 }
